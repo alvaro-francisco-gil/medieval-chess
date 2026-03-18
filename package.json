@@ -1,0 +1,21 @@
+{
+  "name": "medieval-chess",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.24.0",
+  "private": true,
+  "scripts": {
+    "web:dev": "pnpm --filter medieval-chess-web dev",
+    "web:build": "pnpm --filter medieval-chess-web build",
+    "web:start": "pnpm --filter medieval-chess-web start",
+    "web:lint": "pnpm --filter medieval-chess-web lint",
+    "engine:build": "pnpm --filter @medieval-chess/engine build",
+    "engine:test": "pnpm --filter @medieval-chess/engine test",
+    "shared:build": "pnpm --filter @medieval-chess/shared build",
+    "shared:test": "pnpm --filter @medieval-chess/shared test",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3"
+  }
+}

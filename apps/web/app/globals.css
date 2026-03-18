@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+:root {
+  --color-parchment: #f4e4c1;
+  --color-parchment-dark: #d4c4a1;
+  --color-wood: #8b5e3c;
+  --color-wood-dark: #5c3a1e;
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8d48b;
+  --color-ink: #2c1810;
+  --color-ink-light: #5c4033;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--color-parchment);
+  color: var(--color-ink);
+}

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@medieval-chess/engine": ["packages/chess-engine/src/index.ts"],
+      "@medieval-chess/shared/*": ["packages/shared/src/*"]
+    }
+  }
+}
