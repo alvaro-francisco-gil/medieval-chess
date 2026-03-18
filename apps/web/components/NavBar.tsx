@@ -44,15 +44,26 @@ export default function NavBar() {
           >
             Puzzles
           </Link>
+          <Link
+            href="/community"
+            className="hover:underline"
+            style={{ color: "var(--color-ink-light)" }}
+          >
+            Community
+          </Link>
         </div>
       </div>
 
       <div className="text-sm">
         {loading ? null : user ? (
           <div className="flex items-center gap-3">
-            <span style={{ color: "var(--color-ink-light)" }}>
+            <Link
+              href="/profile"
+              className="hover:underline"
+              style={{ color: "var(--color-ink-light)" }}
+            >
               {user.displayName || user.email}
-            </span>
+            </Link>
             <button
               onClick={signOut}
               className="px-3 py-1 rounded cursor-pointer transition-colors"

@@ -19,14 +19,14 @@ export default function Home() {
               Learn how medieval chess pieces move with visual examples.
             </p>
           </Link>
-          <div className="bg-white/60 border border-[var(--color-wood)]/20 rounded-lg p-6">
+          <Link href="/puzzles" className="bg-white/60 border border-[var(--color-wood)]/20 rounded-lg p-6 hover:bg-white/80 transition-colors">
             <h2 className="text-lg font-semibold text-[var(--color-wood-dark)] mb-2">
               Puzzles
             </h2>
             <p className="text-sm text-[var(--color-ink-light)]">
               Solve historical chess problems from the Book of Alfonso X and more.
             </p>
-          </div>
+          </Link>
           <Link href="/play" className="bg-white/60 border border-[var(--color-wood)]/20 rounded-lg p-6 hover:bg-white/80 transition-colors">
             <h2 className="text-lg font-semibold text-[var(--color-wood-dark)] mb-2">
               Play
@@ -35,14 +35,14 @@ export default function Home() {
               Set up positions and play medieval chess variants locally.
             </p>
           </Link>
-          <div className="bg-white/60 border border-[var(--color-wood)]/20 rounded-lg p-6">
+          <Link href="/community" className="bg-white/60 border border-[var(--color-wood)]/20 rounded-lg p-6 hover:bg-white/80 transition-colors">
             <h2 className="text-lg font-semibold text-[var(--color-wood-dark)] mb-2">
               Community
             </h2>
             <p className="text-sm text-[var(--color-ink-light)]">
               Share puzzles, discuss strategies, and learn together.
             </p>
-          </div>
+          </Link>
         </div>
       </div>
     </main>
