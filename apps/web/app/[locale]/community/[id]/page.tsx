@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth-context";
 import { getPost, listComments, addComment, likePost } from "@/lib/forum";
 import { useTranslations } from "next-intl";
 import type { ForumPost, ForumComment } from "@medieval-chess/shared/types";
+import RichTextViewer from "@/components/editor/RichTextViewer";
 
 export default function PostPage({
   params,
@@ -143,10 +144,14 @@ export default function PostPage({
             <span>{timeAgo(post.createdAt)}</span>
           </div>
           <div
-            className="text-sm leading-relaxed whitespace-pre-wrap"
+            className="text-sm leading-relaxed"
             style={{ color: "var(--color-ink)" }}
           >
-            {typeof post.content === "string" ? post.content : post.contentPreview ?? ""}
+            {typeof post.content === "string" ? (
+              <div className="whitespace-pre-wrap">{post.content}</div>
+            ) : (
+              <RichTextViewer content={post.content} />
+            )}
           </div>
 
           <div className="flex items-center gap-4 mt-4 pt-4" style={{ borderTop: "1px solid rgba(139, 94, 60, 0.15)" }}>
