@@ -1,3 +1,16 @@
+export interface TiptapNode {
+  type: string;
+  attrs?: Record<string, unknown>;
+  content?: TiptapNode[];
+  marks?: { type: string; attrs?: Record<string, unknown> }[];
+  text?: string;
+}
+
+export interface TiptapDocument {
+  type: "doc";
+  content: TiptapNode[];
+}
+
 export interface Puzzle {
   id: string;
   title: string;
@@ -34,7 +47,8 @@ export interface UserProfile {
 export interface ForumPost {
   id: string;
   title: string;
-  content: string;
+  content: TiptapDocument | string;
+  contentPreview?: string;
   authorId: string;
   authorName: string;
   authorAvatarUrl?: string;
