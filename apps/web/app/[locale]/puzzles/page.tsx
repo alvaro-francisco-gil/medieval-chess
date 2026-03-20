@@ -1,15 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { listPuzzles } from "@/lib/puzzles";
 import { useAuth } from "@/lib/auth-context";
 import type { Puzzle } from "@medieval-chess/shared/types";
 
-const DIFFICULTY_LABELS = ["", "Beginner", "Easy", "Medium", "Hard", "Master"];
+const DIFFICULTY_KEYS = ["", "beginner", "easy", "medium", "hard", "master"];
 
 export default function PuzzlesPage() {
   const { user } = useAuth();
+  const t = useTranslations("puzzles");
+  const tAuth = useTranslations("auth");
   const [puzzles, setPuzzles] = useState<Puzzle[]>([]);
   const [loading, setLoading] = useState(true);
   const [difficulty, setDifficulty] = useState<number | undefined>();
@@ -34,10 +37,10 @@ export default function PuzzlesPage() {
               className="text-3xl font-bold"
               style={{ color: "var(--color-wood-dark)" }}
             >
-              Puzzles
+              {t("title")}
             </h1>
             <p className="text-sm mt-1" style={{ color: "var(--color-ink-light)" }}>
-              Solve historical chess problems and community-created challenges.
+              {t("subtitle")}
             </p>
           </div>
           {user && (
@@ -49,7 +52,7 @@ export default function PuzzlesPage() {
                 color: "var(--color-parchment)",
               }}
             >
-              Create Puzzle
+              {t("createPuzzle")}
             </Link>
           )}
         </div>
@@ -69,7 +72,7 @@ export default function PuzzlesPage() {
               border: "1px solid rgba(139, 94, 60, 0.3)",
             }}
           >
-            All
+            {t("all")}
           </button>
           {[1, 2, 3, 4, 5].map((d) => (
             <button
@@ -86,14 +89,14 @@ export default function PuzzlesPage() {
                 border: "1px solid rgba(139, 94, 60, 0.3)",
               }}
             >
-              {DIFFICULTY_LABELS[d]}
+              {t(`difficulty.${DIFFICULTY_KEYS[d]}`)}
             </button>
           ))}
         </div>
 
         {/* Puzzle grid */}
         {loading ? (
-          <p style={{ color: "var(--color-ink-light)" }}>Loading puzzles...</p>
+          <p style={{ color: "var(--color-ink-light)" }}>{t("loading")}</p>
         ) : puzzles.length === 0 ? (
           <div
             className="rounded-lg p-8 text-center"
@@ -106,12 +109,12 @@ export default function PuzzlesPage() {
               className="text-lg mb-2"
               style={{ color: "var(--color-ink-light)" }}
             >
-              No puzzles yet.
+              {t("noPuzzles")}
             </p>
             <p className="text-sm" style={{ color: "var(--color-ink-light)" }}>
               {user
-                ? "Be the first to create one!"
-                : "Sign in to create the first puzzle."}
+                ? t("beFirst")
+                : tAuth("signInToCreate", { item: "puzzle" })}
             </p>
           </div>
         ) : (
@@ -139,8 +142,8 @@ export default function PuzzlesPage() {
                   {puzzle.description}
                 </p>
                 <div className="flex items-center justify-between text-xs" style={{ color: "var(--color-ink-light)" }}>
-                  <span>{DIFFICULTY_LABELS[puzzle.difficulty]}</span>
-                  <span>by {puzzle.authorName}</span>
+                  <span>{t(`difficulty.${DIFFICULTY_KEYS[puzzle.difficulty]}`)}</span>
+                  <span>{t("by", { author: puzzle.authorName })}</span>
                 </div>
                 {puzzle.collection && (
                   <span

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, use } from "react";
+import { useTranslations } from "next-intl";
 import { MedievalChess } from "@medieval-chess/engine";
 import type { MedievalMove } from "@medieval-chess/engine";
 import { ChessBoard } from "@/components/chess-board";
@@ -15,6 +16,7 @@ export default function PuzzlePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
+  const t = useTranslations("puzzles.detail");
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [game, setGame] = useState<MedievalChess | null>(null);
   const [status, setStatus] = useState<PuzzleStatus>("loading");
@@ -29,10 +31,10 @@ export default function PuzzlePage({
         const g = new MedievalChess({ fen: p.fen });
         setGame(g);
         setStatus("playing");
-        setMessage(`Find the best move. ${g.turn() === "w" ? "White" : "Black"} to play.`);
+        setMessage(t(g.turn() === "w" ? "promptWhite" : "promptBlack"));
       }
     });
-  }, [id]);
+  }, [id, t]);
 
   const handleMove = useCallback(
     (move: MedievalMove) => {
@@ -46,7 +48,7 @@ export default function PuzzlePage({
         if (nextIndex >= puzzle.solution.length) {
           // Puzzle solved!
           setStatus("correct");
-          setMessage("Puzzle solved! Well done.");
+          setMessage(t("solved"));
           setMoveCount((c) => c + 1);
           return;
         }
@@ -56,18 +58,18 @@ export default function PuzzlePage({
         const result = game.move(opponentMove);
         if (result) {
           setMoveIndex(nextIndex + 1);
-          setMessage("Correct! Keep going...");
+          setMessage(t("correct"));
           setMoveCount((c) => c + 1);
         }
       } else {
         // Wrong move — undo it
         game.undo();
         setStatus("wrong");
-        setMessage("Not quite. Try again!");
+        setMessage(t("incorrect"));
         setMoveCount((c) => c + 1);
       }
     },
-    [puzzle, game, status, moveIndex]
+    [puzzle, game, status, moveIndex, t]
   );
 
   const handleRetry = useCallback(() => {
@@ -76,9 +78,9 @@ export default function PuzzlePage({
     setGame(g);
     setMoveIndex(0);
     setStatus("playing");
-    setMessage(`Find the best move. ${g.turn() === "w" ? "White" : "Black"} to play.`);
+    setMessage(t(g.turn() === "w" ? "promptWhite" : "promptBlack"));
     setMoveCount((c) => c + 1);
-  }, [puzzle]);
+  }, [puzzle, t]);
 
   if (!puzzle || !game) {
     return (
@@ -87,7 +89,7 @@ export default function PuzzlePage({
         style={{ backgroundColor: "var(--color-parchment)" }}
       >
         <p style={{ color: "var(--color-ink-light)" }}>
-          {status === "loading" ? "Loading puzzle..." : "Puzzle not found."}
+          {status === "loading" ? t("loading") : t("notFound")}
         </p>
       </main>
     );
@@ -129,9 +131,9 @@ export default function PuzzlePage({
               </p>
             )}
             <div className="flex items-center gap-2 text-xs" style={{ color: "var(--color-ink-light)" }}>
-              <span>Difficulty: {puzzle.difficulty}/5</span>
+              <span>{t("difficultyLabel", { level: puzzle.difficulty })}</span>
               <span>&middot;</span>
-              <span>By {puzzle.authorName}</span>
+              <span>{t("byAuthor", { author: puzzle.authorName })}</span>
             </div>
           </div>
 
@@ -173,7 +175,7 @@ export default function PuzzlePage({
                 border: "1px solid rgba(139, 94, 60, 0.3)",
               }}
             >
-              {status === "correct" ? "Play again" : "Retry"}
+              {status === "correct" ? t("playAgain") : t("retry")}
             </button>
           )}
         </div>
@@ -200,7 +202,7 @@ export default function PuzzlePage({
               className="text-sm font-semibold mb-3 uppercase tracking-wide"
               style={{ color: "var(--color-wood-dark)" }}
             >
-              Progress
+              {t("progress")}
             </h3>
             <div className="flex gap-2 flex-wrap">
               {puzzle.solution.map((_, i) => (
@@ -231,7 +233,7 @@ export default function PuzzlePage({
               className="text-xs mt-3"
               style={{ color: "var(--color-ink-light)" }}
             >
-              {moveIndex} of {puzzle.solution.length} moves found
+              {t("movesFound", { current: moveIndex, total: puzzle.solution.length })}
             </p>
           </div>
         </div>

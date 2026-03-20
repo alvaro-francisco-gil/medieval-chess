@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { MedievalChess } from "@medieval-chess/engine";
 import type { MedievalMove } from "@medieval-chess/engine";
 import { ChessBoard } from "@/components/chess-board";
@@ -8,9 +9,22 @@ import MoveList from "@/components/MoveList";
 import StoryPanel from "@/components/StoryPanel";
 
 export default function PlayPage() {
+  const t = useTranslations("play");
   const [game] = useState(() => new MedievalChess());
   const [moves, setMoves] = useState<string[]>([]);
   const [, setMoveCount] = useState(0);
+
+  const getStatusText = () => {
+    if (game.isCheckmate()) {
+      return game.turn() === "w"
+        ? t("status.checkmateBlackWins")
+        : t("status.checkmateWhiteWins");
+    }
+    if (game.isGameOver()) return t("status.draw");
+    return game.turn() === "w"
+      ? t("status.whiteToMove")
+      : t("status.blackToMove");
+  };
 
   const handleMove = useCallback((move: MedievalMove) => {
     setMoves((prev) => [...prev, move.san]);
@@ -41,18 +55,17 @@ export default function PlayPage() {
           className="text-3xl font-bold"
           style={{ color: "var(--color-wood-dark)" }}
         >
-          Medieval Chess
+          {t("title")}
         </h1>
       </div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 items-start">
         <div className="order-2 lg:order-1 min-w-0">
           <StoryPanel
-            title="Free Play"
-            story="Set up positions and explore medieval chess variants. The queen starts as a Grace Jump piece — it can jump 2 squares diagonally or orthogonally, or capture 1 square diagonally. After its first move, it becomes a regular queen (1 square diagonal only). Bishops jump 2 squares diagonally. Pawns can only advance 2 squares if no capture has occurred."
-            turn={game.turn()}
+            title={t("freePlay")}
+            story={t("freePlayStory")}
+            statusText={getStatusText()}
             isGameOver={game.isGameOver()}
-            isCheckmate={game.isCheckmate()}
           />
 
           <div className="flex gap-2 mt-4">
@@ -73,7 +86,7 @@ export default function PlayPage() {
                   "rgba(139, 94, 60, 0.15)")
               }
             >
-              Undo
+              {t("undo")}
             </button>
             <button
               onClick={handleReset}
@@ -92,7 +105,7 @@ export default function PlayPage() {
                   "rgba(139, 94, 60, 0.15)")
               }
             >
-              Reset
+              {t("reset")}
             </button>
           </div>
         </div>
@@ -102,7 +115,7 @@ export default function PlayPage() {
         </div>
 
         <div className="order-3 min-w-0">
-          <MoveList moves={moves} />
+          <MoveList moves={moves} title={t("moves")} emptyMessage={t("noMoves")} />
         </div>
       </div>
     </main>

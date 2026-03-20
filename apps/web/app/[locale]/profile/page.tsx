@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useTranslations, useFormatter } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { getOrCreateProfile } from "@/lib/users";
 import { listPuzzles } from "@/lib/puzzles";
@@ -9,6 +10,8 @@ import type { UserProfile } from "@medieval-chess/shared/types";
 import type { Puzzle } from "@medieval-chess/shared/types";
 
 export default function ProfilePage() {
+  const t = useTranslations("profile");
+  const format = useFormatter();
   const { user, loading: authLoading } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [userPuzzles, setUserPuzzles] = useState<Puzzle[]>([]);
@@ -43,7 +46,7 @@ export default function ProfilePage() {
         className="min-h-screen p-8 flex items-center justify-center"
         style={{ backgroundColor: "var(--color-parchment)" }}
       >
-        <p style={{ color: "var(--color-ink-light)" }}>Loading...</p>
+        <p style={{ color: "var(--color-ink-light)" }}>{t("loading")}</p>
       </main>
     );
   }
@@ -55,13 +58,17 @@ export default function ProfilePage() {
         style={{ backgroundColor: "var(--color-parchment)" }}
       >
         <p style={{ color: "var(--color-ink-light)" }}>
-          Please sign in to view your profile.
+          {t("signInRequired")}
         </p>
       </main>
     );
   }
 
   const solvedCount = Object.keys(profile.solvedPuzzles).length;
+  const memberDate = format.dateTime(new Date(profile.createdAt), {
+    year: "numeric",
+    month: "long",
+  });
 
   return (
     <main
@@ -93,11 +100,7 @@ export default function ProfilePage() {
               {profile.displayName}
             </h1>
             <p className="text-sm" style={{ color: "var(--color-ink-light)" }}>
-              Member since{" "}
-              {new Date(profile.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-              })}
+              {t("memberSince", { date: memberDate })}
             </p>
           </div>
         </div>
@@ -118,7 +121,7 @@ export default function ProfilePage() {
               {solvedCount}
             </p>
             <p className="text-xs" style={{ color: "var(--color-ink-light)" }}>
-              Puzzles Solved
+              {t("puzzlesSolved")}
             </p>
           </div>
           <div
@@ -135,7 +138,7 @@ export default function ProfilePage() {
               {userPuzzles.length}
             </p>
             <p className="text-xs" style={{ color: "var(--color-ink-light)" }}>
-              Puzzles Created
+              {t("puzzlesCreated")}
             </p>
           </div>
           <div
@@ -152,7 +155,7 @@ export default function ProfilePage() {
               {userPuzzles.reduce((sum, p) => sum + p.likes, 0)}
             </p>
             <p className="text-xs" style={{ color: "var(--color-ink-light)" }}>
-              Total Likes
+              {t("totalLikes")}
             </p>
           </div>
         </div>
@@ -169,17 +172,17 @@ export default function ProfilePage() {
             className="text-lg font-semibold mb-4"
             style={{ color: "var(--color-wood-dark)" }}
           >
-            Your Puzzles
+            {t("yourPuzzles")}
           </h2>
           {userPuzzles.length === 0 ? (
             <p className="text-sm" style={{ color: "var(--color-ink-light)" }}>
-              You haven&apos;t created any puzzles yet.{" "}
+              {t("noPuzzles")}{" "}
               <Link
                 href="/puzzles/new"
                 className="underline"
                 style={{ color: "var(--color-wood)" }}
               >
-                Create one
+                {t("createOne")}
               </Link>
             </p>
           ) : (
@@ -205,7 +208,7 @@ export default function ProfilePage() {
                       className="text-xs"
                       style={{ color: "var(--color-ink-light)" }}
                     >
-                      {puzzle.likes} likes
+                      {t("likes", { count: puzzle.likes })}
                     </span>
                   </div>
                 </Link>

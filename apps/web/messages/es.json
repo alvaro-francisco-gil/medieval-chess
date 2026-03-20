@@ -1,5 +1,70 @@
 {
-  "common": {
-    "loading": "Cargando..."
-  }
+  "nav": {
+    "brand": "Ajedrez Medieval",
+    "rules": "Reglas",
+    "play": "Jugar",
+    "puzzles": "Problemas",
+    "community": "Comunidad"
+  },
+  "auth": {
+    "signIn": "Iniciar sesión con Google",
+    "signOut": "Cerrar sesión",
+    "signInToCreate": "Inicia sesión para crear el primer {item}.",
+    "signInRequired": "Inicia sesión para {action}."
+  },
+  "home": {
+    "title": "Ajedrez Medieval",
+    "subtitle": "Explora la historia del ajedrez a través de variantes medievales, problemas y comunidad.",
+    "rulesCard": { "title": "Reglas", "description": "Aprende cómo se mueven las piezas del ajedrez medieval con ejemplos visuales." },
+    "puzzlesCard": { "title": "Problemas", "description": "Resuelve problemas históricos de ajedrez del Libro de Alfonso X y más." },
+    "playCard": { "title": "Jugar", "description": "Configura posiciones y juega variantes de ajedrez medieval localmente." },
+    "communityCard": { "title": "Comunidad", "description": "Comparte problemas, discute estrategias y aprende junto a otros." }
+  },
+  "metadata": {
+    "home": { "title": "Ajedrez Medieval", "description": "Explora la historia del ajedrez a través de variantes medievales, problemas y comunidad" },
+    "rules": { "title": "Reglas del Ajedrez Medieval", "description": "Aprende cómo se mueven las piezas — la Reina (Alferza), el Alfil (Elefante) y más" },
+    "play": { "title": "Jugar Ajedrez Medieval", "description": "Configura posiciones y juega variantes de ajedrez medieval localmente" },
+    "puzzles": { "title": "Problemas de Ajedrez Medieval", "description": "Resuelve problemas históricos de ajedrez y desafíos creados por la comunidad" },
+    "community": { "title": "Comunidad de Ajedrez Medieval", "description": "Discute estrategias, comparte descubrimientos y conéctate con otros jugadores" },
+    "profile": { "title": "Tu Perfil — Ajedrez Medieval", "description": "Consulta tus estadísticas de problemas y problemas creados" }
+  },
+  "rules": {
+    "backToHome": "Volver al inicio", "title": "Reglas del Ajedrez Medieval",
+    "intro": "El ajedrez medieval difiere del ajedrez moderno en varios aspectos clave. La reina y el alfil se mueven de forma muy diferente, y el movimiento de los peones cambia a medida que avanza la partida.",
+    "legend": { "piecePosition": "Posición de la pieza", "canMove": "Puede moverse aquí", "canCapture": "Puede capturar aquí" },
+    "queen": { "title": "La Reina (Alferza) — Salto de Gracia", "description": "Al inicio de la partida, las reinas son piezas de 'Salto de Gracia'. En su primer movimiento, tienen habilidades especiales de salto. Después de moverse una vez, se convierten en reinas regulares con movimiento limitado.", "firstMoveLabel": "Primer movimiento — Opciones del Salto de Gracia:", "firstMoveCaption": "Salta 2 casillas (sin captura), o 1 diagonal (captura permitida)", "afterMoveLabel": "Después del primer movimiento — Reina regular:", "afterMoveCaption": "Solo se mueve 1 casilla en diagonal" },
+    "bishop": { "title": "El Alfil (Elefante)", "description": "A diferencia del ajedrez moderno donde los alfiles se deslizan por las diagonales, el alfil medieval salta exactamente 2 casillas en diagonal. Salta sobre cualquier pieza en el camino — nada puede bloquear su paso.", "movementLabel": "Movimiento del alfil — salto diagonal de 2 casillas:", "movementCaption": "Salta sobre las piezas — el peón no bloquea el movimiento superior izquierdo" },
+    "rook": { "title": "La Torre", "description": "La torre se mueve exactamente como en el ajedrez moderno — se desliza cualquier número de casillas a lo largo de una fila o columna, y no puede saltar sobre piezas.", "movementLabel": "Movimiento de la torre — se desliza por filas y columnas:", "movementCaption": "Se desliza hasta ser bloqueada — puede capturar el peón" },
+    "knight": { "title": "El Caballo", "description": "El caballo se mueve exactamente como en el ajedrez moderno — en forma de L (2+1 casillas), y puede saltar sobre otras piezas.", "movementLabel": "Movimiento del caballo — saltos en forma de L:" },
+    "pawn": { "title": "El Peón", "description": "Los peones avanzan una casilla, o capturan una casilla en diagonal — igual que en el ajedrez moderno. Sin embargo, el movimiento doble en el primer turno solo está disponible si no ha ocurrido ninguna captura en la partida.", "note": "Una vez que cualquier pieza captura a otra (por cualquier bando), todos los peones pierden la capacidad de mover dos casillas. Los peones promocionan a una Reina con Salto de Gracia.", "beforeCaptureLabel": "Antes de cualquier captura — puede mover 1 o 2 casillas:", "afterCaptureLabel": "Después de una captura — solo 1 casilla:" },
+    "king": { "title": "El Rey", "description": "El rey se mueve exactamente como en el ajedrez moderno — una casilla en cualquier dirección. El enroque está disponible bajo las condiciones estándar.", "movementLabel": "Movimiento del rey — 1 casilla en cualquier dirección:" },
+    "summary": { "title": "Diferencias Clave con el Ajedrez Moderno", "queen": "Comienza con poderes especiales de Salto de Gracia (saltos de 2 casillas). Después del primer movimiento, solo se mueve 1 casilla en diagonal. Mucho más débil que la reina moderna.", "bishop": "Salta exactamente 2 casillas en diagonal (como un caballo pero en diagonal). Puede saltar sobre piezas. No se desliza.", "pawns": "El movimiento doble solo está disponible antes de que ocurra cualquier captura en la partida. Promocionan a Reina con Salto de Gracia.", "others": "Se mueven exactamente como en el ajedrez moderno.", "tryItOut": "Pruébalo" }
+  },
+  "play": {
+    "title": "Ajedrez Medieval", "freePlay": "Juego Libre",
+    "freePlayStory": "Configura posiciones y explora variantes de ajedrez medieval. La reina comienza como una pieza de Salto de Gracia — puede saltar 2 casillas en diagonal u ortogonalmente, o capturar 1 casilla en diagonal. Después de su primer movimiento, se convierte en una reina regular (solo 1 casilla en diagonal). Los alfiles saltan 2 casillas en diagonal. Los peones solo pueden avanzar 2 casillas si no ha ocurrido ninguna captura.",
+    "undo": "Deshacer", "reset": "Reiniciar", "moves": "Movimientos", "noMoves": "Sin movimientos aún. Haz clic en una pieza para empezar.",
+    "status": { "whiteToMove": "Mueven las blancas", "blackToMove": "Mueven las negras", "checkmateWhiteWins": "¡Jaque mate! Ganan las blancas.", "checkmateBlackWins": "¡Jaque mate! Ganan las negras.", "draw": "Fin de la partida — tablas." }
+  },
+  "puzzles": {
+    "title": "Problemas", "subtitle": "Resuelve problemas históricos de ajedrez y desafíos creados por la comunidad.",
+    "createPuzzle": "Crear Problema", "all": "Todos", "loading": "Cargando problemas...", "noPuzzles": "No hay problemas aún.", "beFirst": "¡Sé el primero en crear uno!", "by": "por {author}",
+    "difficulty": { "beginner": "Principiante", "easy": "Fácil", "medium": "Medio", "hard": "Difícil", "master": "Maestro" },
+    "detail": { "loading": "Cargando problema...", "notFound": "Problema no encontrado.", "difficultyLabel": "Dificultad: {level}/5", "byAuthor": "Por {author}", "progress": "Progreso", "movesFound": "{current} de {total} movimientos encontrados", "promptWhite": "Encuentra el mejor movimiento. Juegan las blancas.", "promptBlack": "Encuentra el mejor movimiento. Juegan las negras.", "solved": "¡Problema resuelto! Bien hecho.", "correct": "¡Correcto! Sigue adelante...", "incorrect": "No del todo. ¡Inténtalo de nuevo!", "playAgain": "Jugar de nuevo", "retry": "Reintentar" },
+    "create": { "title": "Crear Problema", "signInRequired": "Inicia sesión para crear problemas.", "stepPosition": "Posición", "stepSolution": "Solución", "stepDetails": "Detalles", "step1Title": "Paso 1: Establece la posición inicial", "step1Description": "Ingresa una cadena FEN para establecer la posición inicial del problema.", "fenPlaceholder": "Cadena FEN...", "nextSolution": "Siguiente: Definir Solución", "step2Title": "Paso 2: Juega la solución", "step2Description": "Realiza los movimientos que forman la solución del problema en el tablero. Incluye tanto los movimientos del jugador como las respuestas del oponente.", "solutionMoves": "Movimientos de la solución:", "undo": "Deshacer", "back": "Atrás", "nextDetails": "Siguiente: Agregar Detalles", "step3Title": "Paso 3: Agrega detalles", "labelTitle": "Título *", "placeholderTitle": "ej., Alfonso X — Problema 12", "labelDescription": "Descripción *", "placeholderDescription": "ej., Blancas juegan y dan mate en 2", "labelStory": "Historia Histórica (opcional)", "placeholderStory": "Contexto histórico de este problema...", "labelDifficulty": "Dificultad", "labelCollection": "Colección (opcional)", "placeholderCollection": "ej., alfonso-x", "creating": "Creando...", "createButton": "Crear Problema" }
+  },
+  "community": {
+    "title": "Comunidad", "subtitle": "Discute estrategias, comparte descubrimientos y conéctate con otros jugadores.",
+    "newPost": "Nueva Publicación", "loading": "Cargando publicaciones...", "noPosts": "No hay publicaciones aún.", "startDiscussion": "¡Inicia una discusión!",
+    "commentCount": "{count, plural, one {# comentario} other {# comentarios}}", "likeCount": "{count, plural, one {# me gusta} other {# me gusta}}",
+    "timeAgo": { "justNow": "ahora mismo", "minutesAgo": "hace {count}m", "hoursAgo": "hace {count}h", "daysAgo": "hace {count}d" },
+    "detail": { "loading": "Cargando...", "notFound": "Publicación no encontrada.", "like": "Me gusta", "liked": "Te gusta", "commentPlaceholder": "Escribe un comentario...", "posting": "Publicando...", "commentButton": "Comentar", "signInToComment": "Inicia sesión para comentar." },
+    "new": { "title": "Nueva Publicación", "signInRequired": "Inicia sesión para crear publicaciones.", "labelTitle": "Título", "placeholderTitle": "¿Qué tienes en mente?", "labelContent": "Contenido", "placeholderContent": "Comparte tus ideas, estrategias o preguntas...", "cancel": "Cancelar", "posting": "Publicando...", "postButton": "Publicar" }
+  },
+  "profile": {
+    "loading": "Cargando...", "signInRequired": "Inicia sesión para ver tu perfil.",
+    "memberSince": "Miembro desde {date}", "puzzlesSolved": "Problemas Resueltos", "puzzlesCreated": "Problemas Creados", "totalLikes": "Me Gusta Totales",
+    "yourPuzzles": "Tus Problemas", "noPuzzles": "Aún no has creado ningún problema.", "createOne": "Crear uno", "likes": "{count} me gusta"
+  },
+  "notFound": { "title": "Página No Encontrada", "description": "La página que buscas no existe.", "goHome": "Ir al inicio" }
 }

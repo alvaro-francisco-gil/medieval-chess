@@ -1,5 +1,70 @@
 {
-  "common": {
-    "loading": "Loading..."
-  }
+  "nav": {
+    "brand": "Medieval Chess",
+    "rules": "Rules",
+    "play": "Play",
+    "puzzles": "Puzzles",
+    "community": "Community"
+  },
+  "auth": {
+    "signIn": "Sign in with Google",
+    "signOut": "Sign out",
+    "signInToCreate": "Sign in to create the first {item}.",
+    "signInRequired": "Please sign in to {action}."
+  },
+  "home": {
+    "title": "Medieval Chess",
+    "subtitle": "Explore the history of chess through medieval variants, puzzles, and community.",
+    "rulesCard": { "title": "Rules", "description": "Learn how medieval chess pieces move with visual examples." },
+    "puzzlesCard": { "title": "Puzzles", "description": "Solve historical chess problems from the Book of Alfonso X and more." },
+    "playCard": { "title": "Play", "description": "Set up positions and play medieval chess variants locally." },
+    "communityCard": { "title": "Community", "description": "Share puzzles, discuss strategies, and learn together." }
+  },
+  "metadata": {
+    "home": { "title": "Medieval Chess", "description": "Explore the history of chess through medieval variants, puzzles, and community" },
+    "rules": { "title": "Rules of Medieval Chess", "description": "Learn how medieval chess pieces move — the Queen (Alferza), Bishop (Elephant), and more" },
+    "play": { "title": "Play Medieval Chess", "description": "Set up positions and play medieval chess variants locally" },
+    "puzzles": { "title": "Medieval Chess Puzzles", "description": "Solve historical chess problems and community-created challenges" },
+    "community": { "title": "Medieval Chess Community", "description": "Discuss strategies, share discoveries, and connect with other players" },
+    "profile": { "title": "Your Profile — Medieval Chess", "description": "View your puzzle stats and created puzzles" }
+  },
+  "rules": {
+    "backToHome": "Back to home", "title": "Rules of Medieval Chess",
+    "intro": "Medieval chess differs from modern chess in several key ways. The queen and bishop move very differently, and pawn movement changes as the game progresses.",
+    "legend": { "piecePosition": "Piece position", "canMove": "Can move here", "canCapture": "Can capture here" },
+    "queen": { "title": "The Queen (Alferza) — Grace Jump", "description": "At the start of the game, queens are 'Grace Jump' pieces. On their very first move, they have special jumping abilities. After moving once, they become regular queens with limited movement.", "firstMoveLabel": "First move — Grace Jump options:", "firstMoveCaption": "Jumps 2 squares (no capture), or 1 diagonal (capture OK)", "afterMoveLabel": "After first move — Regular queen:", "afterMoveCaption": "Only moves 1 square diagonally" },
+    "bishop": { "title": "The Bishop (Elephant)", "description": "Unlike modern chess where bishops slide along diagonals, the medieval bishop jumps exactly 2 squares diagonally. It leaps over any piece in between — nothing can block its path.", "movementLabel": "Bishop movement — 2-square diagonal jump:", "movementCaption": "Jumps over pieces — the pawn doesn't block the top-left move" },
+    "rook": { "title": "The Rook", "description": "The rook moves exactly as in modern chess — it slides any number of squares along a rank or file, and cannot jump over pieces.", "movementLabel": "Rook movement — slides along ranks and files:", "movementCaption": "Slides until blocked — can capture the pawn" },
+    "knight": { "title": "The Knight", "description": "The knight moves exactly as in modern chess — in an L-shape (2+1 squares), and can jump over other pieces.", "movementLabel": "Knight movement — L-shape jumps:" },
+    "pawn": { "title": "The Pawn", "description": "Pawns move forward one square, or capture one square diagonally — just like modern chess. However, the double-move on the first turn is only available if no capture has occurred in the game yet.", "note": "Once any piece captures another (by either side), all pawns lose the ability to move two squares. Pawns promote to a Grace Jump Queen.", "beforeCaptureLabel": "Before any capture — can move 1 or 2 squares:", "afterCaptureLabel": "After a capture happened — only 1 square:" },
+    "king": { "title": "The King", "description": "The king moves exactly as in modern chess — one square in any direction. Castling is available under the standard conditions.", "movementLabel": "King movement — 1 square in any direction:" },
+    "summary": { "title": "Key Differences from Modern Chess", "queen": "Starts with special Grace Jump powers (2-square jumps). After first move, only moves 1 square diagonally. Much weaker than the modern queen.", "bishop": "Jumps exactly 2 squares diagonally (like a knight but diagonal). Can leap over pieces. Does not slide.", "pawns": "Double-move is only available before any capture occurs in the game. Promote to Grace Jump Queen.", "others": "Move exactly as in modern chess.", "tryItOut": "Try it out" }
+  },
+  "play": {
+    "title": "Medieval Chess", "freePlay": "Free Play",
+    "freePlayStory": "Set up positions and explore medieval chess variants. The queen starts as a Grace Jump piece — it can jump 2 squares diagonally or orthogonally, or capture 1 square diagonally. After its first move, it becomes a regular queen (1 square diagonal only). Bishops jump 2 squares diagonally. Pawns can only advance 2 squares if no capture has occurred.",
+    "undo": "Undo", "reset": "Reset", "moves": "Moves", "noMoves": "No moves yet. Click a piece to start.",
+    "status": { "whiteToMove": "White to move", "blackToMove": "Black to move", "checkmateWhiteWins": "Checkmate! White wins.", "checkmateBlackWins": "Checkmate! Black wins.", "draw": "Game over — draw." }
+  },
+  "puzzles": {
+    "title": "Puzzles", "subtitle": "Solve historical chess problems and community-created challenges.",
+    "createPuzzle": "Create Puzzle", "all": "All", "loading": "Loading puzzles...", "noPuzzles": "No puzzles yet.", "beFirst": "Be the first to create one!", "by": "by {author}",
+    "difficulty": { "beginner": "Beginner", "easy": "Easy", "medium": "Medium", "hard": "Hard", "master": "Master" },
+    "detail": { "loading": "Loading puzzle...", "notFound": "Puzzle not found.", "difficultyLabel": "Difficulty: {level}/5", "byAuthor": "By {author}", "progress": "Progress", "movesFound": "{current} of {total} moves found", "promptWhite": "Find the best move. White to play.", "promptBlack": "Find the best move. Black to play.", "solved": "Puzzle solved! Well done.", "correct": "Correct! Keep going...", "incorrect": "Not quite. Try again!", "playAgain": "Play again", "retry": "Retry" },
+    "create": { "title": "Create Puzzle", "signInRequired": "Please sign in to create puzzles.", "stepPosition": "Set Position", "stepSolution": "Solution", "stepDetails": "Details", "step1Title": "Step 1: Set the starting position", "step1Description": "Enter a FEN string to set the puzzle's starting position.", "fenPlaceholder": "FEN string...", "nextSolution": "Next: Define Solution", "step2Title": "Step 2: Play the solution", "step2Description": "Make the moves that form the puzzle's solution on the board. Include both the player's moves and the opponent's responses.", "solutionMoves": "Solution moves:", "undo": "Undo", "back": "Back", "nextDetails": "Next: Add Details", "step3Title": "Step 3: Add details", "labelTitle": "Title *", "placeholderTitle": "e.g., Alfonso X — Problem 12", "labelDescription": "Description *", "placeholderDescription": "e.g., White to play and checkmate in 2", "labelStory": "Historical Story (optional)", "placeholderStory": "Historical context for this puzzle...", "labelDifficulty": "Difficulty", "labelCollection": "Collection (optional)", "placeholderCollection": "e.g., alfonso-x", "creating": "Creating...", "createButton": "Create Puzzle" }
+  },
+  "community": {
+    "title": "Community", "subtitle": "Discuss strategies, share discoveries, and connect with other players.",
+    "newPost": "New Post", "loading": "Loading posts...", "noPosts": "No posts yet.", "startDiscussion": "Start a discussion!",
+    "commentCount": "{count, plural, one {# comment} other {# comments}}", "likeCount": "{count, plural, one {# like} other {# likes}}",
+    "timeAgo": { "justNow": "just now", "minutesAgo": "{count}m ago", "hoursAgo": "{count}h ago", "daysAgo": "{count}d ago" },
+    "detail": { "loading": "Loading...", "notFound": "Post not found.", "like": "Like", "liked": "Liked", "commentPlaceholder": "Write a comment...", "posting": "Posting...", "commentButton": "Comment", "signInToComment": "Sign in to comment." },
+    "new": { "title": "New Post", "signInRequired": "Please sign in to create posts.", "labelTitle": "Title", "placeholderTitle": "What's on your mind?", "labelContent": "Content", "placeholderContent": "Share your thoughts, strategies, or questions...", "cancel": "Cancel", "posting": "Posting...", "postButton": "Post" }
+  },
+  "profile": {
+    "loading": "Loading...", "signInRequired": "Please sign in to view your profile.",
+    "memberSince": "Member since {date}", "puzzlesSolved": "Puzzles Solved", "puzzlesCreated": "Puzzles Created", "totalLikes": "Total Likes",
+    "yourPuzzles": "Your Puzzles", "noPuzzles": "You haven't created any puzzles yet.", "createOne": "Create one", "likes": "{count} likes"
+  },
+  "notFound": { "title": "Page Not Found", "description": "The page you're looking for doesn't exist.", "goHome": "Go to homepage" }
 }

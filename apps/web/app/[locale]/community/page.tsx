@@ -1,26 +1,30 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { listPosts } from "@/lib/forum";
 import { useAuth } from "@/lib/auth-context";
+import { useTranslations } from "next-intl";
 import type { ForumPost } from "@medieval-chess/shared/types";
-
-function timeAgo(timestamp: number): string {
-  const seconds = Math.floor((Date.now() - timestamp) / 1000);
-  if (seconds < 60) return "just now";
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  return `${days}d ago`;
-}
 
 export default function CommunityPage() {
   const { user } = useAuth();
   const [posts, setPosts] = useState<ForumPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const t = useTranslations("community");
+  const tAuth = useTranslations("auth");
+  const tTime = useTranslations("community.timeAgo");
+
+  function timeAgo(timestamp: number): string {
+    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    if (seconds < 60) return tTime("justNow");
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return tTime("minutesAgo", { count: minutes });
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return tTime("hoursAgo", { count: hours });
+    const days = Math.floor(hours / 24);
+    return tTime("daysAgo", { count: days });
+  }
 
   useEffect(() => {
     listPosts(50)
@@ -41,10 +45,10 @@ export default function CommunityPage() {
               className="text-3xl font-bold"
               style={{ color: "var(--color-wood-dark)" }}
             >
-              Community
+              {t("title")}
             </h1>
             <p className="text-sm mt-1" style={{ color: "var(--color-ink-light)" }}>
-              Discuss strategies, share discoveries, and connect with other players.
+              {t("subtitle")}
             </p>
           </div>
           {user && (
@@ -56,13 +60,13 @@ export default function CommunityPage() {
                 color: "var(--color-parchment)",
               }}
             >
-              New Post
+              {t("newPost")}
             </Link>
           )}
         </div>
 
         {loading ? (
-          <p style={{ color: "var(--color-ink-light)" }}>Loading posts...</p>
+          <p style={{ color: "var(--color-ink-light)" }}>{t("loading")}</p>
         ) : posts.length === 0 ? (
           <div
             className="rounded-lg p-8 text-center"
@@ -72,10 +76,10 @@ export default function CommunityPage() {
             }}
           >
             <p className="text-lg mb-2" style={{ color: "var(--color-ink-light)" }}>
-              No posts yet.
+              {t("noPosts")}
             </p>
             <p className="text-sm" style={{ color: "var(--color-ink-light)" }}>
-              {user ? "Start a discussion!" : "Sign in to create the first post."}
+              {user ? t("startDiscussion") : tAuth("signInToCreate", { item: "post" })}
             </p>
           </div>
         ) : (
@@ -100,7 +104,7 @@ export default function CommunityPage() {
                   className="text-sm mb-3 line-clamp-2"
                   style={{ color: "var(--color-ink-light)" }}
                 >
-                  {post.content}
+                  {post.contentPreview || (typeof post.content === "string" ? post.content : "")}
                 </p>
                 <div
                   className="flex items-center gap-4 text-xs"
@@ -108,8 +112,8 @@ export default function CommunityPage() {
                 >
                   <span>{post.authorName}</span>
                   <span>{timeAgo(post.createdAt)}</span>
-                  <span>{post.commentCount} {post.commentCount === 1 ? "comment" : "comments"}</span>
-                  <span>{post.likes} {post.likes === 1 ? "like" : "likes"}</span>
+                  <span>{t("commentCount", { count: post.commentCount })}</span>
+                  <span>{t("likeCount", { count: post.likes })}</span>
                 </div>
               </Link>
             ))}

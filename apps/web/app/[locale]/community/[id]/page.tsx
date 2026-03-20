@@ -3,18 +3,8 @@
 import { useEffect, useState, useCallback, use } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { getPost, listComments, addComment, likePost } from "@/lib/forum";
+import { useTranslations } from "next-intl";
 import type { ForumPost, ForumComment } from "@medieval-chess/shared/types";
-
-function timeAgo(timestamp: number): string {
-  const seconds = Math.floor((Date.now() - timestamp) / 1000);
-  if (seconds < 60) return "just now";
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  return `${days}d ago`;
-}
 
 export default function PostPage({
   params,
@@ -29,6 +19,20 @@ export default function PostPage({
   const [newComment, setNewComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [liked, setLiked] = useState(false);
+  const t = useTranslations("community.detail");
+  const tTime = useTranslations("community.timeAgo");
+  const tComm = useTranslations("community");
+
+  function timeAgo(timestamp: number): string {
+    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    if (seconds < 60) return tTime("justNow");
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return tTime("minutesAgo", { count: minutes });
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return tTime("hoursAgo", { count: hours });
+    const days = Math.floor(hours / 24);
+    return tTime("daysAgo", { count: days });
+  }
 
   useEffect(() => {
     Promise.all([getPost(id), listComments(id)])
@@ -89,7 +93,7 @@ export default function PostPage({
         className="min-h-screen p-8 flex items-center justify-center"
         style={{ backgroundColor: "var(--color-parchment)" }}
       >
-        <p style={{ color: "var(--color-ink-light)" }}>Loading...</p>
+        <p style={{ color: "var(--color-ink-light)" }}>{t("loading")}</p>
       </main>
     );
   }
@@ -100,7 +104,7 @@ export default function PostPage({
         className="min-h-screen p-8 flex items-center justify-center"
         style={{ backgroundColor: "var(--color-parchment)" }}
       >
-        <p style={{ color: "var(--color-ink-light)" }}>Post not found.</p>
+        <p style={{ color: "var(--color-ink-light)" }}>{t("notFound")}</p>
       </main>
     );
   }
@@ -142,7 +146,7 @@ export default function PostPage({
             className="text-sm leading-relaxed whitespace-pre-wrap"
             style={{ color: "var(--color-ink)" }}
           >
-            {post.content}
+            {typeof post.content === "string" ? post.content : post.contentPreview ?? ""}
           </div>
 
           <div className="flex items-center gap-4 mt-4 pt-4" style={{ borderTop: "1px solid rgba(139, 94, 60, 0.15)" }}>
@@ -152,10 +156,10 @@ export default function PostPage({
               className="flex items-center gap-1 text-sm cursor-pointer disabled:opacity-60"
               style={{ color: liked ? "var(--color-gold)" : "var(--color-ink-light)" }}
             >
-              {liked ? "Liked" : "Like"} ({post.likes})
+              {liked ? t("liked") : t("like")} ({post.likes})
             </button>
             <span className="text-sm" style={{ color: "var(--color-ink-light)" }}>
-              {post.commentCount} {post.commentCount === 1 ? "comment" : "comments"}
+              {tComm("commentCount", { count: post.commentCount })}
             </span>
           </div>
         </article>
@@ -204,7 +208,7 @@ export default function PostPage({
               className="w-full px-3 py-2 rounded text-sm mb-3"
               style={inputStyle}
               rows={3}
-              placeholder="Write a comment..."
+              placeholder={t("commentPlaceholder")}
               required
             />
             <button
@@ -216,12 +220,12 @@ export default function PostPage({
                 color: "var(--color-parchment)",
               }}
             >
-              {submitting ? "Posting..." : "Comment"}
+              {submitting ? t("posting") : t("commentButton")}
             </button>
           </form>
         ) : (
           <p className="text-sm text-center" style={{ color: "var(--color-ink-light)" }}>
-            Sign in to comment.
+            {t("signInToComment")}
           </p>
         )}
       </div>

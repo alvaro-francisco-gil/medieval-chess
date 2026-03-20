@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import MiniBoard from "@/components/chess-board/MiniBoard";
 
 interface RuleSectionProps {
@@ -45,6 +46,7 @@ function RuleSection({ title, description, children, note }: RuleSectionProps) {
 }
 
 function Legend() {
+  const t = useTranslations("rules");
   return (
     <div className="flex gap-4 flex-wrap text-xs" style={{ color: "var(--color-ink-light)" }}>
       <div className="flex items-center gap-1.5">
@@ -52,26 +54,27 @@ function Legend() {
           className="w-4 h-4 rounded"
           style={{ backgroundColor: "rgba(201, 168, 76, 0.6)" }}
         />
-        <span>Piece position</span>
+        <span>{t("legend.piecePosition")}</span>
       </div>
       <div className="flex items-center gap-1.5">
         <div className="w-4 h-4 rounded flex items-center justify-center" style={{ backgroundColor: "rgba(201, 168, 76, 0.5)" }}>
           <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "rgba(201, 168, 76, 0.7)" }} />
         </div>
-        <span>Can move here</span>
+        <span>{t("legend.canMove")}</span>
       </div>
       <div className="flex items-center gap-1.5">
         <div
           className="w-4 h-4 rounded"
           style={{ backgroundColor: "rgba(180, 60, 60, 0.45)" }}
         />
-        <span>Can capture here</span>
+        <span>{t("legend.canCapture")}</span>
       </div>
     </div>
   );
 }
 
 export default function RulesPage() {
+  const t = useTranslations("rules");
   return (
     <main
       className="min-h-screen p-4 md:p-8"
@@ -85,21 +88,19 @@ export default function RulesPage() {
             className="text-sm mb-4 inline-block"
             style={{ color: "var(--color-wood)" }}
           >
-            &larr; Back to home
+            {t("backToHome")}
           </Link>
           <h1
             className="text-4xl font-bold mb-2"
             style={{ color: "var(--color-wood-dark)" }}
           >
-            Rules of Medieval Chess
+            {t("title")}
           </h1>
           <p
             className="text-lg mb-4"
             style={{ color: "var(--color-ink-light)" }}
           >
-            Medieval chess differs from modern chess in several key ways.
-            The queen and bishop move very differently, and pawn movement
-            changes as the game progresses.
+            {t("intro")}
           </p>
           <Legend />
         </div>
@@ -107,12 +108,12 @@ export default function RulesPage() {
         <div className="space-y-8">
           {/* Queen Grace Jump */}
           <RuleSection
-            title="The Queen (Alferza) — Grace Jump"
-            description="At the start of the game, queens are 'Grace Jump' pieces. On their very first move, they have special jumping abilities. After moving once, they become regular queens with limited movement."
+            title={t("queen.title")}
+            description={t("queen.description")}
           >
             <div>
               <p className="text-xs mb-2 font-medium" style={{ color: "var(--color-wood-dark)" }}>
-                First move — Grace Jump options:
+                {t("queen.firstMoveLabel")}
               </p>
               <MiniBoard
                 size={7}
@@ -139,12 +140,12 @@ export default function RulesPage() {
                 ]}
               />
               <p className="text-xs mt-1.5" style={{ color: "var(--color-ink-light)" }}>
-                Jumps 2 squares (no capture), or 1 diagonal (capture OK)
+                {t("queen.firstMoveCaption")}
               </p>
             </div>
             <div>
               <p className="text-xs mb-2 font-medium" style={{ color: "var(--color-wood-dark)" }}>
-                After first move — Regular queen:
+                {t("queen.afterMoveLabel")}
               </p>
               <MiniBoard
                 size={7}
@@ -160,19 +161,19 @@ export default function RulesPage() {
                 ]}
               />
               <p className="text-xs mt-1.5" style={{ color: "var(--color-ink-light)" }}>
-                Only moves 1 square diagonally
+                {t("queen.afterMoveCaption")}
               </p>
             </div>
           </RuleSection>
 
           {/* Bishop (Elephant) */}
           <RuleSection
-            title="The Bishop (Elephant)"
-            description="Unlike modern chess where bishops slide along diagonals, the medieval bishop jumps exactly 2 squares diagonally. It leaps over any piece in between — nothing can block its path."
+            title={t("bishop.title")}
+            description={t("bishop.description")}
           >
             <div>
               <p className="text-xs mb-2 font-medium" style={{ color: "var(--color-wood-dark)" }}>
-                Bishop movement — 2-square diagonal jump:
+                {t("bishop.movementLabel")}
               </p>
               <MiniBoard
                 size={7}
@@ -192,19 +193,19 @@ export default function RulesPage() {
                 ]}
               />
               <p className="text-xs mt-1.5" style={{ color: "var(--color-ink-light)" }}>
-                Jumps over pieces — the pawn doesn&apos;t block the top-left move
+                {t("bishop.movementCaption")}
               </p>
             </div>
           </RuleSection>
 
           {/* Rook */}
           <RuleSection
-            title="The Rook"
-            description="The rook moves exactly as in modern chess — it slides any number of squares along a rank or file, and cannot jump over pieces."
+            title={t("rook.title")}
+            description={t("rook.description")}
           >
             <div>
               <p className="text-xs mb-2 font-medium" style={{ color: "var(--color-wood-dark)" }}>
-                Rook movement — slides along ranks and files:
+                {t("rook.movementLabel")}
               </p>
               <MiniBoard
                 size={7}
@@ -233,19 +234,19 @@ export default function RulesPage() {
                 ]}
               />
               <p className="text-xs mt-1.5" style={{ color: "var(--color-ink-light)" }}>
-                Slides until blocked — can capture the pawn
+                {t("rook.movementCaption")}
               </p>
             </div>
           </RuleSection>
 
           {/* Knight */}
           <RuleSection
-            title="The Knight"
-            description="The knight moves exactly as in modern chess — in an L-shape (2+1 squares), and can jump over other pieces."
+            title={t("knight.title")}
+            description={t("knight.description")}
           >
             <div>
               <p className="text-xs mb-2 font-medium" style={{ color: "var(--color-wood-dark)" }}>
-                Knight movement — L-shape jumps:
+                {t("knight.movementLabel")}
               </p>
               <MiniBoard
                 size={7}
@@ -268,13 +269,13 @@ export default function RulesPage() {
 
           {/* Pawn */}
           <RuleSection
-            title="The Pawn"
-            description="Pawns move forward one square, or capture one square diagonally — just like modern chess. However, the double-move on the first turn is only available if no capture has occurred in the game yet."
-            note="Once any piece captures another (by either side), all pawns lose the ability to move two squares. Pawns promote to a Grace Jump Queen."
+            title={t("pawn.title")}
+            description={t("pawn.description")}
+            note={t("pawn.note")}
           >
             <div>
               <p className="text-xs mb-2 font-medium" style={{ color: "var(--color-wood-dark)" }}>
-                Before any capture — can move 1 or 2 squares:
+                {t("pawn.beforeCaptureLabel")}
               </p>
               <MiniBoard
                 size={5}
@@ -293,7 +294,7 @@ export default function RulesPage() {
             </div>
             <div>
               <p className="text-xs mb-2 font-medium" style={{ color: "var(--color-wood-dark)" }}>
-                After a capture happened — only 1 square:
+                {t("pawn.afterCaptureLabel")}
               </p>
               <MiniBoard
                 size={5}
@@ -309,12 +310,12 @@ export default function RulesPage() {
 
           {/* King */}
           <RuleSection
-            title="The King"
-            description="The king moves exactly as in modern chess — one square in any direction. Castling is available under the standard conditions."
+            title={t("king.title")}
+            description={t("king.description")}
           >
             <div>
               <p className="text-xs mb-2 font-medium" style={{ color: "var(--color-wood-dark)" }}>
-                King movement — 1 square in any direction:
+                {t("king.movementLabel")}
               </p>
               <MiniBoard
                 size={5}
@@ -347,24 +348,16 @@ export default function RulesPage() {
               className="text-xl font-bold mb-3"
               style={{ color: "var(--color-wood-dark)" }}
             >
-              Key Differences from Modern Chess
+              {t("summary.title")}
             </h2>
             <ul
               className="space-y-2 text-sm"
               style={{ color: "var(--color-ink)" }}
             >
-              <li>
-                <strong>Queen</strong> — Starts with special Grace Jump powers (2-square jumps). After first move, only moves 1 square diagonally. Much weaker than the modern queen.
-              </li>
-              <li>
-                <strong>Bishop</strong> — Jumps exactly 2 squares diagonally (like a knight but diagonal). Can leap over pieces. Does not slide.
-              </li>
-              <li>
-                <strong>Pawns</strong> — Double-move is only available before any capture occurs in the game. Promote to Grace Jump Queen.
-              </li>
-              <li>
-                <strong>Rook, Knight, King</strong> — Move exactly as in modern chess.
-              </li>
+              <li>{t("summary.queen")}</li>
+              <li>{t("summary.bishop")}</li>
+              <li>{t("summary.pawns")}</li>
+              <li>{t("summary.others")}</li>
             </ul>
             <div className="mt-4">
               <Link
@@ -375,7 +368,7 @@ export default function RulesPage() {
                   color: "var(--color-parchment)",
                 }}
               >
-                Try it out &rarr;
+                {t("summary.tryItOut")}
               </Link>
             </div>
           </div>

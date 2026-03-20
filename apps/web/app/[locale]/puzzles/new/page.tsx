@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { MedievalChess } from "@medieval-chess/engine";
 import type { MedievalMove } from "@medieval-chess/engine";
 import { ChessBoard } from "@/components/chess-board";
@@ -10,9 +11,12 @@ import { createPuzzle } from "@/lib/puzzles";
 
 type Step = "setup" | "solution" | "details";
 
+const DIFFICULTY_KEYS = ["", "beginner", "easy", "medium", "hard", "master"];
+
 export default function NewPuzzlePage() {
   const { user } = useAuth();
   const router = useRouter();
+  const t = useTranslations("puzzles.create");
 
   const [step, setStep] = useState<Step>("setup");
   const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
@@ -97,7 +101,7 @@ export default function NewPuzzlePage() {
         style={{ backgroundColor: "var(--color-parchment)" }}
       >
         <p style={{ color: "var(--color-ink-light)" }}>
-          Please sign in to create puzzles.
+          {t("signInRequired")}
         </p>
       </main>
     );
@@ -119,7 +123,7 @@ export default function NewPuzzlePage() {
           className="text-3xl font-bold mb-2"
           style={{ color: "var(--color-wood-dark)" }}
         >
-          Create Puzzle
+          {t("title")}
         </h1>
 
         {/* Step indicator */}
@@ -142,7 +146,9 @@ export default function NewPuzzlePage() {
               >
                 {i + 1}
               </span>
-              <span className="hidden sm:inline capitalize">{s === "setup" ? "Set Position" : s}</span>
+              <span className="hidden sm:inline capitalize">
+                {s === "setup" ? t("stepPosition") : s === "solution" ? t("stepSolution") : t("stepDetails")}
+              </span>
             </div>
           ))}
         </div>
@@ -162,10 +168,10 @@ export default function NewPuzzlePage() {
                   className="text-lg font-semibold mb-3"
                   style={{ color: "var(--color-wood-dark)" }}
                 >
-                  Step 1: Set the starting position
+                  {t("step1Title")}
                 </h2>
                 <p className="text-sm mb-3" style={{ color: "var(--color-ink-light)" }}>
-                  Enter a FEN string to set the puzzle&apos;s starting position.
+                  {t("step1Description")}
                 </p>
                 <input
                   type="text"
@@ -173,7 +179,7 @@ export default function NewPuzzlePage() {
                   onChange={handleFenChange}
                   className="w-full px-3 py-2 rounded text-sm font-mono mb-4"
                   style={inputStyle}
-                  placeholder="FEN string..."
+                  placeholder={t("fenPlaceholder")}
                 />
                 <button
                   onClick={handleStartSolution}
@@ -183,7 +189,7 @@ export default function NewPuzzlePage() {
                     color: "var(--color-parchment)",
                   }}
                 >
-                  Next: Define Solution
+                  {t("nextSolution")}
                 </button>
               </div>
             )}
@@ -200,17 +206,16 @@ export default function NewPuzzlePage() {
                   className="text-lg font-semibold mb-3"
                   style={{ color: "var(--color-wood-dark)" }}
                 >
-                  Step 2: Play the solution
+                  {t("step2Title")}
                 </h2>
                 <p className="text-sm mb-3" style={{ color: "var(--color-ink-light)" }}>
-                  Make the moves that form the puzzle&apos;s solution on the board.
-                  Include both the player&apos;s moves and the opponent&apos;s responses.
+                  {t("step2Description")}
                 </p>
 
                 {solutionMoves.length > 0 && (
                   <div className="mb-3">
                     <p className="text-xs font-medium mb-1" style={{ color: "var(--color-wood-dark)" }}>
-                      Solution moves:
+                      {t("solutionMoves")}
                     </p>
                     <div className="flex gap-1 flex-wrap font-mono text-sm">
                       {solutionMoves.map((m, i) => (
@@ -241,7 +246,7 @@ export default function NewPuzzlePage() {
                       border: "1px solid rgba(139, 94, 60, 0.3)",
                     }}
                   >
-                    Undo
+                    {t("undo")}
                   </button>
                   <button
                     onClick={() => setStep("setup")}
@@ -252,7 +257,7 @@ export default function NewPuzzlePage() {
                       border: "1px solid rgba(139, 94, 60, 0.3)",
                     }}
                   >
-                    Back
+                    {t("back")}
                   </button>
                   <button
                     onClick={() => setStep("details")}
@@ -263,7 +268,7 @@ export default function NewPuzzlePage() {
                       color: "var(--color-parchment)",
                     }}
                   >
-                    Next: Add Details
+                    {t("nextDetails")}
                   </button>
                 </div>
               </div>
@@ -281,13 +286,13 @@ export default function NewPuzzlePage() {
                   className="text-lg font-semibold mb-3"
                   style={{ color: "var(--color-wood-dark)" }}
                 >
-                  Step 3: Add details
+                  {t("step3Title")}
                 </h2>
 
                 <div className="space-y-3">
                   <div>
                     <label className="text-xs font-medium block mb-1" style={{ color: "var(--color-wood-dark)" }}>
-                      Title *
+                      {t("labelTitle")}
                     </label>
                     <input
                       type="text"
@@ -295,13 +300,13 @@ export default function NewPuzzlePage() {
                       onChange={(e) => setTitle(e.target.value)}
                       className="w-full px-3 py-2 rounded text-sm"
                       style={inputStyle}
-                      placeholder="e.g., Alfonso X — Problem 12"
+                      placeholder={t("placeholderTitle")}
                     />
                   </div>
 
                   <div>
                     <label className="text-xs font-medium block mb-1" style={{ color: "var(--color-wood-dark)" }}>
-                      Description *
+                      {t("labelDescription")}
                     </label>
                     <input
                       type="text"
@@ -309,13 +314,13 @@ export default function NewPuzzlePage() {
                       onChange={(e) => setDescription(e.target.value)}
                       className="w-full px-3 py-2 rounded text-sm"
                       style={inputStyle}
-                      placeholder="e.g., White to play and checkmate in 2"
+                      placeholder={t("placeholderDescription")}
                     />
                   </div>
 
                   <div>
                     <label className="text-xs font-medium block mb-1" style={{ color: "var(--color-wood-dark)" }}>
-                      Historical Story (optional)
+                      {t("labelStory")}
                     </label>
                     <textarea
                       value={story}
@@ -323,13 +328,13 @@ export default function NewPuzzlePage() {
                       className="w-full px-3 py-2 rounded text-sm"
                       style={inputStyle}
                       rows={3}
-                      placeholder="Historical context for this puzzle..."
+                      placeholder={t("placeholderStory")}
                     />
                   </div>
 
                   <div>
                     <label className="text-xs font-medium block mb-1" style={{ color: "var(--color-wood-dark)" }}>
-                      Difficulty
+                      {t("labelDifficulty")}
                     </label>
                     <select
                       value={difficulty}
@@ -337,17 +342,17 @@ export default function NewPuzzlePage() {
                       className="px-3 py-2 rounded text-sm"
                       style={inputStyle}
                     >
-                      <option value={1}>1 — Beginner</option>
-                      <option value={2}>2 — Easy</option>
-                      <option value={3}>3 — Medium</option>
-                      <option value={4}>4 — Hard</option>
-                      <option value={5}>5 — Master</option>
+                      {[1, 2, 3, 4, 5].map((d) => (
+                        <option key={d} value={d}>
+                          {d} — {t(`difficultyOption.${DIFFICULTY_KEYS[d]}`)}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
                   <div>
                     <label className="text-xs font-medium block mb-1" style={{ color: "var(--color-wood-dark)" }}>
-                      Collection (optional)
+                      {t("labelCollection")}
                     </label>
                     <input
                       type="text"
@@ -355,7 +360,7 @@ export default function NewPuzzlePage() {
                       onChange={(e) => setPuzzleCollection(e.target.value)}
                       className="w-full px-3 py-2 rounded text-sm"
                       style={inputStyle}
-                      placeholder="e.g., alfonso-x"
+                      placeholder={t("placeholderCollection")}
                     />
                   </div>
                 </div>
@@ -370,7 +375,7 @@ export default function NewPuzzlePage() {
                       border: "1px solid rgba(139, 94, 60, 0.3)",
                     }}
                   >
-                    Back
+                    {t("back")}
                   </button>
                   <button
                     onClick={handleSubmit}
@@ -381,7 +386,7 @@ export default function NewPuzzlePage() {
                       color: "var(--color-parchment)",
                     }}
                   >
-                    {submitting ? "Creating..." : "Create Puzzle"}
+                    {submitting ? t("creating") : t("createButton")}
                   </button>
                 </div>
               </div>
